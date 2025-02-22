@@ -6,6 +6,7 @@ public static class MathUtility
 
     public static int ConvertDoubleToInt(double value)
     {
+        if (!double.IsFinite(value)) return int.MaxValue; 
         if (value < 1000000000)
         {
             return (int)value;
@@ -34,6 +35,7 @@ public static class MathUtility
         // If we are under, the value is just what it is
         // Otherwise the 10 next bits represent the EXX value
         // the 20 last bits represents the "decimals" 
+        if (value == int.MaxValue) return double.PositiveInfinity;
         string bits = ConvertIntToBits(value);
         if (bits[1] == '0') return value;
         string beforeDecimal = bits.Substring(2, 10);
